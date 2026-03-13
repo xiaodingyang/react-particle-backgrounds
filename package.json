@@ -1,0 +1,64 @@
+{
+  "name": "react-particle-backgrounds",
+  "version": "1.0.0",
+  "description": "A React component library providing multiple beautiful particle background themes with tsparticles and Three.js",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "react": ">=17.0.0",
+    "react-dom": ">=17.0.0"
+  },
+  "peerDependenciesMeta": {
+    "three": {
+      "optional": true
+    }
+  },
+  "dependencies": {
+    "@tsparticles/engine": "^3.9.0",
+    "@tsparticles/react": "^3.0.0",
+    "@tsparticles/slim": "^3.9.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@types/three": "^0.170.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "three": "^0.170.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.3.0"
+  },
+  "keywords": [
+    "react",
+    "particles",
+    "background",
+    "tsparticles",
+    "three.js",
+    "animation",
+    "theme",
+    "particle-effects"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/react-particle-backgrounds"
+  },
+  "homepage": "https://github.com/your-username/react-particle-backgrounds#readme"
+}
