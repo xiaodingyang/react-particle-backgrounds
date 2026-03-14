@@ -1,5 +1,5 @@
 {
-  "name": "react-particle-backgrounds",
+  "name": "@xdy-npm/react-particle-backgrounds",
   "version": "1.0.0",
   "description": "A React component library providing multiple beautiful particle background themes with tsparticles and Three.js",
   "main": "dist/index.js",
@@ -58,7 +58,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/your-username/react-particle-backgrounds"
+    "url": "https://github.com/xiaodingyang/react-particle-backgrounds"
   },
-  "homepage": "https://github.com/your-username/react-particle-backgrounds#readme"
+  "homepage": "https://github.com/xiaodingyang/react-particle-backgrounds#readme"
 }

@@ -1,40 +1,40 @@
 # react-particle-backgrounds
 
-A React component library that provides **7 beautiful particle background themes** powered by [tsparticles](https://particles.js.org/) and [Three.js](https://threejs.org/).
+一个基于 [tsparticles](https://particles.js.org/) 和 [Three.js](https://threejs.org/) 的 React 粒子背景组件库，提供 **7 种精美粒子背景主题**。
 
-## Themes
+## 主题一览
 
-| Theme | ID | Description |
-|-------|----|-------------|
-| ✨ Star Links | `starline` | Classic particle linking effect |
-| ❄️ Snowfall | `snow` | Romantic falling snowflakes |
-| 🫧 Bubbles | `bubble` | Dreamy rising bubbles |
-| ⭐ Twinkling Stars | `stars` | Sparkling starry sky |
-| 🪲 Fireflies | `firefly` | Warm glowing firefly effect |
-| 🔷 Geometry | `geometry` | Floating abstract geometric shapes |
-| 🌊 Particle Ocean | `wave` | 3D particle wave (Three.js) |
-| 🚫 None | `none` | Disable effects |
+| 主题 | ID | 描述 |
+|------|----|------|
+| ✨ 星链 | `starline` | 经典粒子连线效果 |
+| ❄️ 飘雪 | `snow` | 浪漫飘落雪花 |
+| 🫧 气泡 | `bubble` | 梦幻上升气泡 |
+| ⭐ 繁星 | `stars` | 闪烁星空效果 |
+| 🪲 萤火虫 | `firefly` | 温暖的萤火虫光效 |
+| 🔷 几何 | `geometry` | 漂浮的抽象几何图形 |
+| 🌊 粒子海洋 | `wave` | 3D 粒子波浪（Three.js） |
+| 🚫 无 | `none` | 关闭粒子效果 |
 
-## Installation
+## 安装
 
 ```bash
-npm install react-particle-backgrounds
-# or
-pnpm add react-particle-backgrounds
+npm install @xdy-npm/react-particle-backgrounds
+# 或
+pnpm add @xdy-npm/react-particle-backgrounds
 ```
 
-For the **Particle Ocean** (wave) theme, you also need Three.js:
+如需使用**粒子海洋**（wave）主题，还需要安装 Three.js：
 
 ```bash
 npm install three
 ```
 
-## Quick Start
+## 快速开始
 
-### Simple Usage (Props)
+### 基础用法（Props 方式）
 
 ```tsx
-import { ParticlesBackground } from 'react-particle-backgrounds';
+import { ParticlesBackground } from '@xdy-npm/react-particle-backgrounds';
 
 function App() {
   return (
@@ -48,14 +48,14 @@ function App() {
 }
 ```
 
-### With Theme Selector (Context)
+### 配合主题选择器（Context 方式）
 
 ```tsx
 import {
   ParticleProvider,
   ParticlesBackground,
   ThemeSelector,
-} from 'react-particle-backgrounds';
+} from '@xdy-npm/react-particle-backgrounds';
 
 function App() {
   return (
@@ -70,21 +70,21 @@ function App() {
 }
 ```
 
-### Programmatic Theme Switching
+### 编程式切换主题
 
 ```tsx
 import {
   ParticleProvider,
   ParticlesBackground,
   useParticleTheme,
-} from 'react-particle-backgrounds';
+} from '@xdy-npm/react-particle-backgrounds';
 
 function ThemeButton() {
   const { themeId, setTheme } = useParticleTheme();
 
   return (
     <button onClick={() => setTheme('firefly')}>
-      Current: {themeId} — Switch to Firefly
+      当前：{themeId} — 切换到萤火虫
     </button>
   );
 }
@@ -103,62 +103,62 @@ function App() {
 
 ### `<ParticlesBackground />`
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `theme` | `ThemeId \| string` | `'starline'` | Theme ID (overrides provider) |
-| `isDark` | `boolean` | `true` | Dark mode toggle |
-| `onLoaded` | `(container?) => void` | — | Callback when particles load |
-| `className` | `string` | — | CSS class |
-| `style` | `CSSProperties` | — | Inline styles |
+| 属性 | 类型 | 默认值 | 描述 |
+|------|------|--------|------|
+| `theme` | `ThemeId \| string` | `'starline'` | 主题 ID（会覆盖 Provider 中的设置） |
+| `isDark` | `boolean` | `true` | 深色模式开关 |
+| `onLoaded` | `(container?) => void` | — | 粒子加载完成的回调 |
+| `className` | `string` | — | CSS 类名 |
+| `style` | `CSSProperties` | — | 行内样式 |
 
 ### `<ParticleProvider />`
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `defaultTheme` | `ThemeId \| string` | `'starline'` | Initial theme |
-| `isDark` | `boolean` | `true` | Dark mode state |
-| `persist` | `boolean` | `true` | Save to localStorage |
-| `children` | `ReactNode` | — | Child components |
+| 属性 | 类型 | 默认值 | 描述 |
+|------|------|--------|------|
+| `defaultTheme` | `ThemeId \| string` | `'starline'` | 初始主题 |
+| `isDark` | `boolean` | `true` | 深色模式状态 |
+| `persist` | `boolean` | `true` | 是否持久化到 localStorage |
+| `children` | `ReactNode` | — | 子组件 |
 
 ### `<ThemeSelector />`
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `position` | `'bottom-right' \| 'bottom-left' \| 'top-right' \| 'top-left'` | `'bottom-right'` | Button position |
-| `accentColor` | `string` | `'#3b82f6'` | Active state color |
+| 属性 | 类型 | 默认值 | 描述 |
+|------|------|--------|------|
+| `position` | `'bottom-right' \| 'bottom-left' \| 'top-right' \| 'top-left'` | `'bottom-right'` | 按钮位置 |
+| `accentColor` | `string` | `'#3b82f6'` | 激活状态颜色 |
 
 ### `useParticleTheme()`
 
-Hook to access theme state (must be within `<ParticleProvider>`).
+用于访问主题状态的 Hook（必须在 `<ParticleProvider>` 内使用）。
 
 ```ts
 const { themeId, isDark, setTheme, setDark } = useParticleTheme();
 ```
 
-### Theme Objects
+### 主题对象
 
-Access individual theme configs:
+访问单个主题配置：
 
 ```ts
-import { starlineTheme, particleThemes, getThemeById } from 'react-particle-backgrounds';
+import { starlineTheme, particleThemes, getThemeById } from '@xdy-npm/react-particle-backgrounds';
 
 const theme = getThemeById('snow');
-const options = theme.options(true); // get tsparticles config for dark mode
+const options = theme.options(true); // 获取深色模式下的 tsparticles 配置
 ```
 
-## Custom Themes
+## 自定义主题
 
-You can create your own theme and pass it directly:
+你可以创建自己的主题并直接传入：
 
 ```tsx
-import type { ParticleTheme } from 'react-particle-backgrounds';
-import { baseConfig } from 'react-particle-backgrounds';
+import type { ParticleTheme } from '@xdy-npm/react-particle-backgrounds';
+import { baseConfig } from '@xdy-npm/react-particle-backgrounds';
 
 const myTheme: ParticleTheme = {
   id: 'custom',
-  name: 'My Theme',
+  name: '我的主题',
   icon: '🎨',
-  description: 'A custom particle theme',
+  description: '一个自定义粒子主题',
   options: (isDark) => ({
     ...baseConfig,
     particles: {
@@ -172,6 +172,6 @@ const myTheme: ParticleTheme = {
 };
 ```
 
-## License
+## 许可证
 
 MIT
