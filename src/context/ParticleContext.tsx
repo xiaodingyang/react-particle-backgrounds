@@ -14,19 +14,19 @@ const ParticleContext = createContext<ParticleContextValue | null>(null);
 const STORAGE_KEY = 'rpb-theme-id';
 
 export interface ParticleProviderProps {
-  /** Initial/default theme ID */
+  /** 初始/默认主题 ID */
   defaultTheme?: ThemeId | string;
-  /** Whether to use dark mode particle colors */
+  /** 是否使用深色模式粒子颜色 */
   isDark?: boolean;
-  /** Persist theme selection to localStorage */
+  /** 是否将主题选择持久化到 localStorage */
   persist?: boolean;
   children: React.ReactNode;
 }
 
 /**
- * Provides particle theme state to child components.
- * Wrap your app (or a subtree) with this provider to use
- * `<ParticlesBackground />` and `<ThemeSelector />` without explicit props.
+ * 为子组件提供粒子主题状态。
+ * 用此 Provider 包裹你的应用（或子树），即可无需显式传参地使用
+ * `<ParticlesBackground />` 和 `<ThemeSelector />`。
  */
 export const ParticleProvider: React.FC<ParticleProviderProps> = ({
   defaultTheme = DEFAULT_THEME_ID,
@@ -60,7 +60,7 @@ export const ParticleProvider: React.FC<ParticleProviderProps> = ({
   );
 };
 
-/** Access the current particle theme context. Must be used within a `<ParticleProvider>`. */
+/** 访问当前粒子主题上下文。必须在 `<ParticleProvider>` 内使用。 */
 export const useParticleTheme = (): ParticleContextValue => {
   const ctx = useContext(ParticleContext);
   if (!ctx) {
@@ -70,8 +70,8 @@ export const useParticleTheme = (): ParticleContextValue => {
 };
 
 /**
- * Internal hook: returns context if available, otherwise falls back to props.
- * This allows components to work both with and without a provider.
+ * 内部 Hook：如果上下文可用则返回上下文，否则回退到 props。
+ * 这允许组件在有或没有 Provider 的情况下都能正常工作。
  */
 export const useParticleThemeOptional = () => {
   return useContext(ParticleContext);

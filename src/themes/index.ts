@@ -17,7 +17,7 @@ import { geometryTheme } from './geometry';
 import { waveTheme } from './wave';
 import type { ParticleTheme } from './types';
 
-/** All built-in particle themes (excludes "none") */
+/** 所有内置粒子主题（不包含 "none"） */
 export const particleThemes: ParticleTheme[] = [
   starlineTheme,
   snowTheme,
@@ -28,7 +28,7 @@ export const particleThemes: ParticleTheme[] = [
   waveTheme,
 ];
 
-/** Get a theme by its ID. Falls back to starline if not found. */
+/** 根据 ID 获取主题。找不到时回退到 starline。 */
 export const getThemeById = (id: string): ParticleTheme => {
   return particleThemes.find((theme) => theme.id === id) || starlineTheme;
 };

@@ -3,15 +3,15 @@ import { particleThemes, getThemeById } from '../themes';
 import { useParticleTheme } from '../context/ParticleContext';
 
 export interface ThemeSelectorProps {
-  /** Position on screen */
+  /** 在屏幕上的位置 */
   position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
-  /** Accent color for active states */
+  /** 激活状态的强调色 */
   accentColor?: string;
 }
 
 /**
- * A floating theme selector button + drawer panel.
- * Must be used inside a `<ParticleProvider>`.
+ * 浮动主题选择器按钮 + 抽屉面板。
+ * 必须在 `<ParticleProvider>` 内使用。
  *
  * ```tsx
  * <ParticleProvider>
@@ -42,7 +42,7 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({
       {/* Floating trigger button */}
       <button
         onClick={() => setOpen(true)}
-        title="Theme Settings"
+        title="主题设置"
         style={{
           position: 'fixed',
           ...positionStyles[position],
@@ -115,7 +115,7 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({
             borderBottom: '1px solid #f0f0f0',
           }}
         >
-          <span style={{ fontWeight: 600, fontSize: 16 }}>Particle Theme</span>
+          <span style={{ fontWeight: 600, fontSize: 16 }}>粒子主题</span>
           <button
             onClick={() => setOpen(false)}
             style={{
@@ -135,9 +135,9 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({
         <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
           {[...particleThemes, {
             id: 'none',
-            name: 'None',
-            icon: '\uD83D\uDEAB',
-            description: 'Disable particle effects',
+            name: '无',
+            icon: '🚫',
+            description: '关闭粒子效果',
           }].map((theme) => {
             const isActive = theme.id === themeId;
             return (
@@ -231,7 +231,7 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({
               lineHeight: 1.6,
             }}
           >
-            Your theme selection is automatically saved and will be remembered on your next visit.
+            你的主题选择会自动保存，下次访问时将自动恢复。
           </div>
         </div>
       </div>

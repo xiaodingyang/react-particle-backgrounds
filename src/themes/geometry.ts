@@ -3,9 +3,9 @@ import { baseConfig } from './base';
 
 export const geometryTheme: ParticleTheme = {
   id: 'geometry',
-  name: 'Geometry',
-  icon: '\uD83D\uDD37',
-  description: 'Floating abstract geometric shapes',
+  name: '几何',
+  icon: '🔷',
+  description: '漂浮的抽象几何图形',
   backgroundGradient: 'linear-gradient(180deg, #0f0c29 0%, #302b63 50%, #24243e 100%)',
   options: (isDark: boolean) => ({
     ...baseConfig,
@@ -17,7 +17,8 @@ export const geometryTheme: ParticleTheme = {
         resize: { enable: true },
       },
       modes: {
-        push: { quantity: 2 },
+        // 快速点击会持续触发 push，限制强度有助于降低连线/粒子带来的开销
+        push: { quantity: 1 },
         repulse: { distance: 150, duration: 0.4 },
       },
     },
@@ -36,6 +37,8 @@ export const geometryTheme: ParticleTheme = {
       number: {
         density: { enable: true, width: 1920, height: 1080 },
         value: 30,
+        // 限制粒子总量，避免连续点击时粒子无限增加
+        limit: { value: 60, mode: 'delete' },
       },
       opacity: {
         value: { min: 0.3, max: 0.7 },

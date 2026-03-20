@@ -1,7 +1,7 @@
 {
   "name": "@xdy-npm/react-particle-backgrounds",
-  "version": "1.0.0",
-  "description": "A React component library providing multiple beautiful particle background themes with tsparticles and Three.js",
+  "version": "1.0.2",
+  "description": "基于 tsparticles 和 Three.js 的 React 粒子背景组件库，提供多种精美粒子背景主题",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",

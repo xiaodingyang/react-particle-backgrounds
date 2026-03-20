@@ -5,13 +5,13 @@ export interface ParticleTheme {
   name: string;
   icon: string;
   description: string;
-  /** Whether this theme uses Three.js instead of tsparticles */
+  /** 是否使用 Three.js 而非 tsparticles */
   isThreeJS?: boolean;
-  /** Returns tsparticles config for the given dark mode state */
+  /** 根据深色模式状态返回 tsparticles 配置 */
   options: (isDark: boolean) => ISourceOptions;
-  /** Solid background color */
+  /** 纯色背景色 */
   backgroundColor?: string;
-  /** CSS gradient background */
+  /** CSS 渐变背景 */
   backgroundGradient?: string;
 }
 

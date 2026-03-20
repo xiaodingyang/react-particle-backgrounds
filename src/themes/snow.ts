@@ -3,9 +3,9 @@ import { baseConfig } from './base';
 
 export const snowTheme: ParticleTheme = {
   id: 'snow',
-  name: 'Snowfall',
-  icon: '\u2744\uFE0F',
-  description: 'Romantic falling snowflakes',
+  name: '飘雪',
+  icon: '❄️',
+  description: '浪漫飘落雪花',
   backgroundGradient: 'linear-gradient(180deg, #1e3a5f 0%, #2d4a6b 50%, #3d5a7b 100%)',
   options: (isDark: boolean) => ({
     ...baseConfig,

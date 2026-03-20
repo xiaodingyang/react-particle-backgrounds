@@ -3,9 +3,9 @@ import { baseConfig, DEFAULT_COLORS } from './base';
 
 export const starlineTheme: ParticleTheme = {
   id: 'starline',
-  name: 'Star Links',
-  icon: '\u2728',
-  description: 'Classic particle linking effect',
+  name: '星链',
+  icon: '✨',
+  description: '经典粒子连线效果',
   backgroundGradient: 'linear-gradient(180deg, #0f172a 0%, #1e293b 50%, #334155 100%)',
   options: (isDark: boolean) => {
     const colors = DEFAULT_COLORS;
@@ -14,12 +14,13 @@ export const starlineTheme: ParticleTheme = {
       interactivity: {
         detectsOn: 'window',
         events: {
-          onClick: { enable: true, mode: 'push' },
+        onClick: { enable: true, mode: 'push' },
           onHover: { enable: true, mode: 'grab' },
           resize: { enable: true },
         },
         modes: {
-          push: { quantity: 6 },
+          // 快速点击会触发 push 不断增加粒子和连线，限制触发强度和最大粒子数量可避免性能问题
+          push: { quantity: 2 },
           grab: {
             distance: 200,
             links: { opacity: 1, color: colors },
@@ -46,6 +47,8 @@ export const starlineTheme: ParticleTheme = {
         number: {
           density: { enable: true, width: 1920, height: 1080 },
           value: 100,
+          // 限制粒子总量，防止快速点击后粒子与连线无限增长
+          limit: { value: 130, mode: 'delete' },
         },
         opacity: { value: 0.7 },
         shape: { type: 'circle' },

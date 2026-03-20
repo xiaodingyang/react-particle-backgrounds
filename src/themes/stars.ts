@@ -3,9 +3,9 @@ import { baseConfig } from './base';
 
 export const starsTheme: ParticleTheme = {
   id: 'stars',
-  name: 'Twinkling Stars',
-  icon: '\u2B50',
-  description: 'Sparkling starry sky',
+  name: '繁星',
+  icon: '⭐',
+  description: '闪烁星空效果',
   backgroundGradient: 'linear-gradient(180deg, #000000 0%, #1a1a2e 50%, #16213e 100%)',
   options: (isDark: boolean) => ({
     ...baseConfig,
@@ -17,7 +17,8 @@ export const starsTheme: ParticleTheme = {
         resize: { enable: true },
       },
       modes: {
-        push: { quantity: 3 },
+        // 限制快速点击触发的粒子 push 强度，避免连线过多造成卡顿
+        push: { quantity: 1 },
         connect: { distance: 100, links: { opacity: 0.3 }, radius: 150 },
       },
     },
@@ -38,6 +39,8 @@ export const starsTheme: ParticleTheme = {
       number: {
         density: { enable: true, width: 1920, height: 1080 },
         value: 120,
+        // 限制粒子总量，避免快速点击后连线无限累积
+        limit: { value: 150, mode: 'delete' },
       },
       opacity: {
         value: { min: 0.2, max: 1 },

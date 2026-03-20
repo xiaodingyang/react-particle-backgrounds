@@ -3,9 +3,9 @@ import { baseConfig } from './base';
 
 export const fireflyTheme: ParticleTheme = {
   id: 'firefly',
-  name: 'Fireflies',
-  icon: '\uD83E\uDEB2',
-  description: 'Warm glowing firefly effect',
+  name: '萤火虫',
+  icon: '🪲',
+  description: '温暖的萤火虫光效',
   backgroundGradient: 'linear-gradient(180deg, #1a1a1a 0%, #2d2d2d 50%, #1a1a1a 100%)',
   options: (isDark: boolean) => ({
     ...baseConfig,

@@ -1,15 +1,15 @@
 import React, { useRef, useEffect } from 'react';
 
 interface ParticleWaveProps {
-  /** CSS gradient or solid background behind the wave */
+  /** 波浪背后的 CSS 渐变或纯色背景 */
   background?: string;
   className?: string;
   style?: React.CSSProperties;
 }
 
 /**
- * 3D particle ocean wave rendered with Three.js.
- * Three.js is loaded dynamically — if not installed, this component renders nothing.
+ * 使用 Three.js 渲染的 3D 粒子海洋波浪。
+ * Three.js 以动态方式加载 — 如果未安装，此组件不会渲染任何内容。
  */
 const ParticleWave: React.FC<ParticleWaveProps> = ({
   background = 'linear-gradient(180deg, #000000 0%, #0a1628 50%, #0d1f3c 100%)',
@@ -29,7 +29,7 @@ const ParticleWave: React.FC<ParticleWaveProps> = ({
         : (() => { throw new Error('no require'); })();
     } catch {
       hasThree.current = false;
-      console.warn('[react-particle-backgrounds] "three" is not installed. The wave theme requires it as a peer dependency.');
+      console.warn('[react-particle-backgrounds] 未安装 "three"。波浪主题需要它作为 peer dependency。');
       return;
     }
 
@@ -55,7 +55,6 @@ const ParticleWave: React.FC<ParticleWaveProps> = ({
     const waveWidth = 200;
     const waveDepth = 100;
 
-    // Wave particles
     const geometry = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
     const colors = new Float32Array(particleCount * 3);
@@ -114,7 +113,6 @@ const ParticleWave: React.FC<ParticleWaveProps> = ({
     const particles = new THREE.Points(geometry, material);
     scene.add(particles);
 
-    // Bokeh particles
     const bokehCount = 100;
     const bokehGeometry = new THREE.BufferGeometry();
     const bokehPositions = new Float32Array(bokehCount * 3);
@@ -152,7 +150,6 @@ const ParticleWave: React.FC<ParticleWaveProps> = ({
     const bokehParticles = new THREE.Points(bokehGeometry, bokehMaterial);
     scene.add(bokehParticles);
 
-    // Rain drops with trails
     const dropCount = 150;
     const trailLength = 12;
 

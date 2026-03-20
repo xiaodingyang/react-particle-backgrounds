@@ -12,7 +12,7 @@ export const baseConfig: Partial<ISourceOptions> = {
   detectRetina: true,
 };
 
-/** Default accent colors used by themes that support multi-color particles */
+/** 支持多色粒子的主题所使用的默认强调色 */
 export const DEFAULT_COLORS = [
   '#ffb3d9', '#f43f5e', '#a78bfa', '#3b82f6',
   '#10b981', '#f59e0b', '#ff6b6b', '#8b5cf6',

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import Particles, { initParticlesEngine } from '@tsparticles/react';
 import { loadSlim } from '@tsparticles/slim';
 import type { Container } from '@tsparticles/engine';
@@ -7,31 +7,33 @@ import type { ThemeId } from '../themes/types';
 import { useParticleThemeOptional } from '../context/ParticleContext';
 import ParticleWave from './ParticleWave';
 
+let instanceCounter = 0;
+
 export interface ParticlesBackgroundProps {
   /**
-   * Theme ID to display. If used inside a `<ParticleProvider>`,
-   * this is optional and the provider's theme will be used.
+   * 要显示的主题 ID。如果在 `<ParticleProvider>` 内使用，
+   * 此属性可选，会自动使用 Provider 中的主题。
    */
   theme?: ThemeId | string;
-  /** Dark mode toggle — affects particle colors for supported themes */
+  /** 深色模式开关 — 影响支持的主题的粒子颜色 */
   isDark?: boolean;
-  /** Callback when particles finish loading */
+  /** 粒子加载完成的回调 */
   onLoaded?: (container?: Container) => void;
-  /** Custom CSS class */
+  /** 自定义 CSS 类名 */
   className?: string;
-  /** Custom inline styles */
+  /** 自定义行内样式 */
   style?: React.CSSProperties;
 }
 
 /**
- * Renders a full-screen particle background.
+ * 渲染全屏粒子背景。
  *
- * Can be used standalone with props:
+ * 可以通过 props 独立使用：
  * ```tsx
  * <ParticlesBackground theme="starline" isDark />
  * ```
  *
- * Or inside a `<ParticleProvider>` for shared state:
+ * 也可以在 `<ParticleProvider>` 内使用以共享状态：
  * ```tsx
  * <ParticleProvider defaultTheme="snow">
  *   <ParticlesBackground />
@@ -46,6 +48,9 @@ const ParticlesBackground: React.FC<ParticlesBackgroundProps> = ({
   style,
 }) => {
   const [init, setInit] = useState(false);
+  const [instanceId, setInstanceId] = useState(() => ++instanceCounter);
+  const containerRef = useRef<Container | undefined>(undefined);
+  const isFirstMount = useRef(true);
   const ctx = useParticleThemeOptional();
 
   const themeId = themeProp ?? ctx?.themeId ?? DEFAULT_THEME_ID;
@@ -61,6 +66,28 @@ const ParticlesBackground: React.FC<ParticlesBackgroundProps> = ({
       setInit(true);
     });
   }, []);
+
+  useEffect(() => {
+    if (!isFirstMount.current) {
+      setInstanceId(++instanceCounter);
+    }
+    isFirstMount.current = false;
+
+    return () => {
+      if (containerRef.current) {
+        containerRef.current.destroy();
+        containerRef.current = undefined;
+      }
+    };
+  }, [themeId, isDark]);
+
+  const particlesLoaded = useCallback(async (container?: Container) => {
+    if (containerRef.current && containerRef.current !== container) {
+      containerRef.current.destroy();
+    }
+    containerRef.current = container;
+    onLoaded?.(container);
+  }, [onLoaded]);
 
   const options = useMemo(() => theme.options(isDark), [theme, isDark]);
 
@@ -78,13 +105,15 @@ const ParticlesBackground: React.FC<ParticlesBackgroundProps> = ({
 
   if (!init) return null;
 
+  const particlesId = `rpb-tsparticles-${instanceId}`;
+
   return (
     <Particles
-      id="rpb-tsparticles"
-      key={themeId}
+      id={particlesId}
+      key={particlesId}
       className={className}
       style={style}
-      particlesLoaded={async (container) => onLoaded?.(container)}
+      particlesLoaded={particlesLoaded}
       options={options}
     />
   );
