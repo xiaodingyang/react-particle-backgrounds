@@ -4,6 +4,7 @@ export type { ParticlesBackgroundProps } from './components/ParticlesBackground'
 export { default as ThemeSelector } from './components/ThemeSelector';
 export type { ThemeSelectorProps } from './components/ThemeSelector';
 export { default as ParticleWave } from './components/ParticleWave';
+export { default as ParticleWave2D } from './components/ParticleWave2D';
 
 // 上下文
 export { ParticleProvider, useParticleTheme } from './context/ParticleContext';
@@ -23,5 +24,6 @@ export {
   fireflyTheme,
   geometryTheme,
   waveTheme,
+  wave2dTheme,
 } from './themes';
 export type { ParticleTheme, ThemeId } from './themes';

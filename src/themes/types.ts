@@ -15,4 +15,4 @@ export interface ParticleTheme {
   backgroundGradient?: string;
 }
 
-export type ThemeId = 'starline' | 'snow' | 'bubble' | 'stars' | 'firefly' | 'geometry' | 'wave' | 'none';
+export type ThemeId = 'starline' | 'snow' | 'bubble' | 'stars' | 'firefly' | 'geometry' | 'wave' | 'wave2d' | 'none';

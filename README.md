@@ -1,6 +1,6 @@
 # react-particle-backgrounds
 
-一个基于 [tsparticles](https://particles.js.org/) 和 Canvas 2D 的 React 粒子背景组件库，提供 **7 种精美粒子背景主题**。
+一个基于 [tsparticles](https://particles.js.org/)、Three.js 和 Canvas 2D 的 React 粒子背景组件库，提供 **8 种精美粒子背景主题**。
 
 开发与发布相关说明（Vite 库模式搭建、npm 发布、面试要点）见仓库内 [docs 目录](./docs/README.md)（该目录仅随 Git 维护，**不会**随 `npm install` 的包体发布）。
 
@@ -24,7 +24,8 @@ pnpm demo:dev
 | ⭐ 繁星 | `stars` | 闪烁星空效果 |
 | 🪲 萤火虫 | `firefly` | 温暖的萤火虫光效 |
 | 🔷 几何 | `geometry` | 漂浮的抽象几何图形 |
-| 🌊 粒子海洋 | `wave` | 3D 粒子波浪（Canvas 2D） |
+| 🌊 粒子海洋 | `wave` | 3D 粒子波浪（Three.js） |
+| 🌊 轻量波浪 | `wave2d` | 轻量级粒子波浪（Canvas 2D） |
 | 🚫 无 | `none` | 关闭粒子效果 |
 
 ## 安装
@@ -34,6 +35,14 @@ npm install @xdy-npm/react-particle-backgrounds
 # 或
 pnpm add @xdy-npm/react-particle-backgrounds
 ```
+
+如需使用 **3D 粒子海洋**（`wave`）主题，还需要安装 Three.js：
+
+```bash
+npm install three
+```
+
+**轻量波浪**（`wave2d`）主题使用 Canvas 2D，无需额外依赖。
 
 ## 快速开始
 

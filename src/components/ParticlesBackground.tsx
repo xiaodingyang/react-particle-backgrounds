@@ -6,6 +6,7 @@ import { getThemeById, DEFAULT_THEME_ID } from '../themes';
 import type { ThemeId } from '../themes/types';
 import { useParticleThemeOptional } from '../context/ParticleContext';
 import ParticleWave from './ParticleWave';
+import ParticleWave2D from './ParticleWave2D';
 
 let instanceCounter = 0;
 
@@ -94,8 +95,9 @@ const ParticlesBackground: React.FC<ParticlesBackgroundProps> = ({
   if (themeId === 'none') return null;
 
   if (theme.isThreeJS) {
+    const WaveComponent = themeId === 'wave2d' ? ParticleWave2D : ParticleWave;
     return (
-      <ParticleWave
+      <WaveComponent
         background={theme.backgroundGradient || theme.backgroundColor}
         className={className}
         style={style}
