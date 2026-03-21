@@ -2,6 +2,18 @@
 
 一个基于 [tsparticles](https://particles.js.org/) 和 [Three.js](https://threejs.org/) 的 React 粒子背景组件库，提供 **7 种精美粒子背景主题**。
 
+开发与发布相关说明（Vite 库模式搭建、npm 发布、面试要点）见仓库内 [docs 目录](./docs/README.md)（该目录仅随 Git 维护，**不会**随 `npm install` 的包体发布）。
+
+## 本地调试 Demo
+
+在仓库根目录执行：
+
+```bash
+pnpm demo:dev
+```
+
+会安装 `examples/demo` 依赖并启动 Vite（默认 `http://localhost:5173`）。Demo 通过别名直接引用根目录 `src/index.ts`，改库源码后保存即可热更新。说明见 [examples/demo/README.md](./examples/demo/README.md)。
+
 ## 主题一览
 
 | 主题 | ID | 描述 |

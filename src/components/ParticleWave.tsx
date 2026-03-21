@@ -21,21 +21,29 @@ const ParticleWave: React.FC<ParticleWaveProps> = ({
   const hasThree = useRef(true);
 
   useEffect(() => {
-    let THREE: any;
-    try {
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      THREE = (globalThis as any).require
-        ? (globalThis as any).require('three')
-        : (() => { throw new Error('no require'); })();
-    } catch {
-      hasThree.current = false;
-      console.warn('[react-particle-backgrounds] 未安装 "three"。波浪主题需要它作为 peer dependency。');
-      return;
-    }
+    let disposed = false;
+    let cleanup: (() => void) | undefined;
 
-    if (!containerRef.current) return;
+    void (async () => {
+      let THREE: any;
+      try {
+        const req = (globalThis as unknown as { require?: (id: string) => unknown }).require;
+        if (typeof req === 'function') {
+          // eslint-disable-next-line @typescript-eslint/no-require-imports
+          THREE = req('three');
+        } else {
+          const mod = await import('three');
+          THREE = (mod as { default?: typeof mod }).default ?? mod;
+        }
+      } catch {
+        hasThree.current = false;
+        console.warn('[react-particle-backgrounds] 未安装 "three"。波浪主题需要它作为 peer dependency。');
+        return;
+      }
 
-    const container = containerRef.current;
+      if (disposed || !containerRef.current) return;
+
+      const container = containerRef.current;
     const width = container.clientWidth;
     const height = container.clientHeight;
 
@@ -359,15 +367,23 @@ const ParticleWave: React.FC<ParticleWaveProps> = ({
     };
     window.addEventListener('resize', handleResize);
 
+      cleanup = () => {
+        window.removeEventListener('resize', handleResize);
+        if (animationRef.current) cancelAnimationFrame(animationRef.current);
+        if (renderer.domElement.parentNode === container) {
+          container.removeChild(renderer.domElement);
+        }
+        geometry.dispose(); material.dispose();
+        bokehGeometry.dispose(); bokehMaterial.dispose();
+        dropTrailGeometry.dispose(); dropTrailMaterial.dispose();
+        dropHeadGeometry.dispose(); dropHeadMaterial.dispose();
+        renderer.dispose();
+      };
+    })();
+
     return () => {
-      window.removeEventListener('resize', handleResize);
-      if (animationRef.current) cancelAnimationFrame(animationRef.current);
-      container.removeChild(renderer.domElement);
-      geometry.dispose(); material.dispose();
-      bokehGeometry.dispose(); bokehMaterial.dispose();
-      dropTrailGeometry.dispose(); dropTrailMaterial.dispose();
-      dropHeadGeometry.dispose(); dropHeadMaterial.dispose();
-      renderer.dispose();
+      disposed = true;
+      cleanup?.();
     };
   }, [background]);
 
