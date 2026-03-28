@@ -13,15 +13,16 @@ export default defineConfig({
     }),
   ],
   build: {
-    sourcemap: true,
+    sourcemap: false,
     emptyOutDir: true,
+    minify: 'esbuild',
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       formats: ['es', 'cjs'],
       fileName: (format) => (format === 'es' ? 'index.mjs' : 'index.js'),
     },
     rollupOptions: {
-      external: ['react', 'react-dom', 'react/jsx-runtime', 'three'],
+      external: ['react', 'react-dom', 'react/jsx-runtime', 'three', '@tsparticles/react', '@tsparticles/slim', '@tsparticles/engine'],
       output: {
         exports: 'named',
       },

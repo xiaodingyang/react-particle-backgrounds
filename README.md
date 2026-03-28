@@ -31,15 +31,14 @@ pnpm demo:dev
 ## 安装
 
 ```bash
-npm install @xdy-npm/react-particle-backgrounds
-# 或
+# 基础安装
 pnpm add @xdy-npm/react-particle-backgrounds
-```
 
-如需使用 **3D 粒子海洋**（`wave`）主题，还需要安装 Three.js：
+# 必须安装：如果使用 tsparticles 主题（starline/snow/bubble/stars/firefly/geometry）
+pnpm add @tsparticles/react @tsparticles/slim @tsparticles/engine
 
-```bash
-npm install three
+# 可选安装：如果使用 Three.js 主题（wave）
+pnpm add three
 ```
 
 **轻量波浪**（`wave2d`）主题使用 Canvas 2D，无需额外依赖。

@@ -1,6 +1,4 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import Particles, { initParticlesEngine } from '@tsparticles/react';
-import { loadSlim } from '@tsparticles/slim';
 import type { Container } from '@tsparticles/engine';
 import { getThemeById, DEFAULT_THEME_ID } from '../themes';
 import type { ThemeId } from '../themes/types';
@@ -9,6 +7,7 @@ import ParticleWave from './ParticleWave';
 import ParticleWave2D from './ParticleWave2D';
 
 let instanceCounter = 0;
+let engineInitPromise: Promise<void> | null = null;
 
 export interface ParticlesBackgroundProps {
   /**
@@ -59,18 +58,28 @@ const ParticlesBackground: React.FC<ParticlesBackgroundProps> = ({
   const theme = getThemeById(themeId);
 
   useEffect(() => {
-    initParticlesEngine(async (engine) => {
-      await loadSlim(engine);
-    }).then(() => {
-      setInit(true);
-    }).catch(() => {
-      setInit(true);
-    });
-  }, []);
+    if (theme.isThreeJS || themeId === 'none') return;
+
+    if (!engineInitPromise) {
+      engineInitPromise = import('@tsparticles/react').then(async ({ initParticlesEngine }) => {
+        const { loadSlim } = await import('@tsparticles/slim');
+        await initParticlesEngine(async (engine) => {
+          await loadSlim(engine);
+        });
+      });
+    }
+
+    engineInitPromise.then(() => setInit(true)).catch(() => setInit(true));
+  }, [theme.isThreeJS, themeId, instanceId]);
 
   useEffect(() => {
     if (!isFirstMount.current) {
+      if (containerRef.current) {
+        containerRef.current.destroy();
+        containerRef.current = undefined;
+      }
       setInstanceId(++instanceCounter);
+      setInit(false);
     }
     isFirstMount.current = false;
 
@@ -109,15 +118,19 @@ const ParticlesBackground: React.FC<ParticlesBackgroundProps> = ({
 
   const particlesId = `rpb-tsparticles-${instanceId}`;
 
+  const ParticlesLazy = React.lazy(() => import('@tsparticles/react').then(m => ({ default: m.Particles })));
+
   return (
-    <Particles
-      id={particlesId}
-      key={particlesId}
-      className={className}
-      style={style}
-      particlesLoaded={particlesLoaded}
-      options={options}
-    />
+    <React.Suspense fallback={null}>
+      <ParticlesLazy
+        id={particlesId}
+        key={particlesId}
+        className={className}
+        style={style}
+        particlesLoaded={particlesLoaded}
+        options={options}
+      />
+    </React.Suspense>
   );
 };
 

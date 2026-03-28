@@ -14,13 +14,11 @@ export const starlineTheme: ParticleTheme = {
       interactivity: {
         detectsOn: 'window',
         events: {
-        onClick: { enable: true, mode: 'push' },
+          onClick: { enable: false },
           onHover: { enable: true, mode: 'grab' },
           resize: { enable: true },
         },
         modes: {
-          // 快速点击会触发 push 不断增加粒子和连线，限制触发强度和最大粒子数量可避免性能问题
-          push: { quantity: 2 },
           grab: {
             distance: 200,
             links: { opacity: 1, color: colors },
@@ -46,9 +44,8 @@ export const starlineTheme: ParticleTheme = {
         },
         number: {
           density: { enable: true, width: 1920, height: 1080 },
-          value: 100,
-          // 限制粒子总量，防止快速点击后粒子与连线无限增长
-          limit: { value: 130, mode: 'delete' },
+          value: 80,
+          limit: { value: 100, mode: 'delete' },
         },
         opacity: { value: 0.7 },
         shape: { type: 'circle' },

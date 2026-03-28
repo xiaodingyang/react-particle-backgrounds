@@ -1,5 +1,7 @@
 export type { ParticleTheme, ThemeId } from './types';
 export { baseConfig, DEFAULT_COLORS } from './base';
+
+// 导出所有主题
 export { starlineTheme } from './starline';
 export { snowTheme } from './snow';
 export { bubbleTheme } from './bubble';
@@ -19,6 +21,8 @@ import { waveTheme } from './wave';
 import { wave2dTheme } from './wave2d';
 import type { ParticleTheme } from './types';
 
+export const DEFAULT_THEME_ID = 'starline';
+
 /** 所有内置粒子主题（不包含 "none"） */
 export const particleThemes: ParticleTheme[] = [
   starlineTheme,
@@ -35,5 +39,3 @@ export const particleThemes: ParticleTheme[] = [
 export const getThemeById = (id: string): ParticleTheme => {
   return particleThemes.find((theme) => theme.id === id) || starlineTheme;
 };
-
-export const DEFAULT_THEME_ID = 'starline';
