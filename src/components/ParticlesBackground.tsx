@@ -9,6 +9,40 @@ import ParticleWave2D from './ParticleWave2D';
 let instanceCounter = 0;
 let engineInitPromise: Promise<void> | null = null;
 
+const toRgba = (color: string, alpha: number): string | null => {
+  const hex = color.trim().match(/^#([\da-f]{3}|[\da-f]{6}|[\da-f]{8})$/i);
+  if (hex) {
+    const raw = hex[1];
+    const full = raw.length === 3
+      ? raw.split('').map((c) => c + c).join('')
+      : raw.slice(0, 6);
+    const r = Number.parseInt(full.slice(0, 2), 16);
+    const g = Number.parseInt(full.slice(2, 4), 16);
+    const b = Number.parseInt(full.slice(4, 6), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
+
+  const rgb = color.trim().match(/^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/i);
+  if (rgb) {
+    return `rgba(${rgb[1]}, ${rgb[2]}, ${rgb[3]}, ${alpha})`;
+  }
+
+  return null;
+};
+
+const buildBackground = (base: string | undefined, themeColor?: string): string | undefined => {
+  if (!themeColor) return base;
+
+  const strong = toRgba(themeColor, 0.32);
+  const soft = toRgba(themeColor, 0.14);
+  const glow = toRgba(themeColor, 0.08);
+  if (!strong || !soft || !glow) return base;
+
+  const colorGradient =
+    `radial-gradient(90% 60% at 100% 0%, ${strong} 0%, ${soft} 36%, ${glow} 62%, rgba(0, 0, 0, 0) 88%), linear-gradient(155deg, ${soft} 0%, rgba(0, 0, 0, 0) 48%)`;
+  return base ? `${colorGradient}, ${base}` : `${colorGradient}, linear-gradient(180deg, #0b1220 0%, #111827 100%)`;
+};
+
 export interface ParticlesBackgroundProps {
   /**
    * 要显示的主题 ID。如果在 `<ParticleProvider>` 内使用，
@@ -19,6 +53,8 @@ export interface ParticlesBackgroundProps {
   isDark?: boolean;
   /** 粒子加载完成的回调 */
   onLoaded?: (container?: Container) => void;
+  /** 传入主题色，背景会自动叠加同色渐变 */
+  themeColor?: string;
   /** 自定义 CSS 类名 */
   className?: string;
   /** 自定义行内样式 */
@@ -44,6 +80,7 @@ const ParticlesBackground: React.FC<ParticlesBackgroundProps> = ({
   theme: themeProp,
   isDark: isDarkProp,
   onLoaded,
+  themeColor,
   className,
   style,
 }) => {
@@ -56,6 +93,7 @@ const ParticlesBackground: React.FC<ParticlesBackgroundProps> = ({
   const themeId = themeProp ?? ctx?.themeId ?? DEFAULT_THEME_ID;
   const isDark = isDarkProp ?? ctx?.isDark ?? true;
   const theme = getThemeById(themeId);
+  const themeBg = buildBackground(theme.backgroundGradient || theme.backgroundColor, themeColor);
 
   useEffect(() => {
     if (theme.isThreeJS || themeId === 'none') return;
@@ -100,6 +138,16 @@ const ParticlesBackground: React.FC<ParticlesBackgroundProps> = ({
   }, [onLoaded]);
 
   const options = useMemo(() => theme.options(isDark), [theme, isDark]);
+  const backgroundStyle = useMemo<React.CSSProperties | null>(() => {
+    if (!themeBg) return null;
+    return {
+      position: 'fixed',
+      inset: 0,
+      zIndex: 0,
+      pointerEvents: 'none',
+      background: themeBg,
+    };
+  }, [themeBg]);
 
   if (themeId === 'none') return null;
 
@@ -107,7 +155,7 @@ const ParticlesBackground: React.FC<ParticlesBackgroundProps> = ({
     const WaveComponent = themeId === 'wave2d' ? ParticleWave2D : ParticleWave;
     return (
       <WaveComponent
-        background={theme.backgroundGradient || theme.backgroundColor}
+        background={themeBg}
         className={className}
         style={style}
       />
@@ -122,6 +170,7 @@ const ParticlesBackground: React.FC<ParticlesBackgroundProps> = ({
 
   return (
     <React.Suspense fallback={null}>
+      {backgroundStyle && <div aria-hidden style={backgroundStyle} />}
       <ParticlesLazy
         id={particlesId}
         key={particlesId}

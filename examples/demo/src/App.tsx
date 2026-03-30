@@ -6,8 +6,8 @@ import {
 
 export default function App() {
   return (
-    <ParticleProvider defaultTheme="starline" isDark persist={false}>
-      <ParticlesBackground />
+    <ParticleProvider defaultTheme="tyndall" isDark persist={false}>
+      <ParticlesBackground themeColor="#f6d36a" />
       <ThemeSelector position="bottom-right" accentColor="#3b82f6" />
       <main
         style={{

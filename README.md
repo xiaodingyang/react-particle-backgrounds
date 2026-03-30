@@ -1,6 +1,6 @@
 # react-particle-backgrounds
 
-一个基于 [tsparticles](https://particles.js.org/)、Three.js 和 Canvas 2D 的 React 粒子背景组件库，提供 **8 种精美粒子背景主题**。
+一个基于 [tsparticles](https://particles.js.org/)、Three.js 和 Canvas 2D 的 React 粒子背景组件库，提供 **9 种精美粒子背景主题**。
 
 开发与发布相关说明（Vite 库模式搭建、npm 发布、面试要点）见仓库内 [docs 目录](./docs/README.md)（该目录仅随 Git 维护，**不会**随 `npm install` 的包体发布）。
 
@@ -26,6 +26,7 @@ pnpm demo:dev
 | 🔷 几何 | `geometry` | 漂浮的抽象几何图形 |
 | 🌊 粒子海洋 | `wave` | 3D 粒子波浪（Three.js） |
 | 🌊 轻量波浪 | `wave2d` | 轻量级粒子波浪（Canvas 2D） |
+| 🌫️ 丁达尔光雨 | `tyndall` | 左上角丁达尔光束 + 轻量波浪下落粒子 |
 | 🚫 无 | `none` | 关闭粒子效果 |
 
 ## 安装
@@ -53,7 +54,7 @@ import { ParticlesBackground } from '@xdy-npm/react-particle-backgrounds';
 function App() {
   return (
     <div>
-      <ParticlesBackground theme="starline" isDark />
+      <ParticlesBackground theme="starline" isDark themeColor="#3b82f6" />
       <main style={{ position: 'relative', zIndex: 1 }}>
         <h1>My App</h1>
       </main>
@@ -122,6 +123,7 @@ function App() {
 | `theme` | `ThemeId \| string` | `'starline'` | 主题 ID（会覆盖 Provider 中的设置） |
 | `isDark` | `boolean` | `true` | 深色模式开关 |
 | `onLoaded` | `(container?) => void` | — | 粒子加载完成的回调 |
+| `themeColor` | `string` | — | 传入主题色，背景自动叠加同色渐变 |
 | `className` | `string` | — | CSS 类名 |
 | `style` | `CSSProperties` | — | 行内样式 |
 

@@ -23,5 +23,6 @@ export {
   geometryTheme,
   waveTheme,
   wave2dTheme,
+  tyndallTheme,
 } from './themes';
 export type { ParticleTheme, ThemeId } from './themes';
