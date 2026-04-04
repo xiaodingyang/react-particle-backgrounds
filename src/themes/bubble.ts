@@ -6,7 +6,6 @@ export const bubbleTheme: ParticleTheme = {
   name: '气泡',
   icon: '🫧',
   description: '梦幻上升气泡',
-  backgroundGradient: 'linear-gradient(180deg, #0a2647 0%, #144272 50%, #205295 100%)',
   options: (isDark: boolean) => ({
     ...baseConfig,
     interactivity: {

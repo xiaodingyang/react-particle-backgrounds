@@ -6,7 +6,6 @@ export const geometryTheme: ParticleTheme = {
   name: '几何',
   icon: '🔷',
   description: '漂浮的抽象几何图形',
-  backgroundGradient: 'linear-gradient(180deg, #0f0c29 0%, #302b63 50%, #24243e 100%)',
   options: (isDark: boolean) => ({
     ...baseConfig,
     interactivity: {

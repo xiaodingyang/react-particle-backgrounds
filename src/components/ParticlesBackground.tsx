@@ -40,7 +40,7 @@ const buildBackground = (base: string | undefined, themeColor?: string): string 
 
   const colorGradient =
     `radial-gradient(90% 60% at 100% 0%, ${strong} 0%, ${soft} 36%, ${glow} 62%, rgba(0, 0, 0, 0) 88%), linear-gradient(155deg, ${soft} 0%, rgba(0, 0, 0, 0) 48%)`;
-  return base ? `${colorGradient}, ${base}` : `${colorGradient}, linear-gradient(180deg, #0b1220 0%, #111827 100%)`;
+  return base ? `${colorGradient}, ${base}` : colorGradient;
 };
 
 export interface ParticlesBackgroundProps {

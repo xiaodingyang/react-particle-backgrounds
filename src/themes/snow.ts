@@ -6,7 +6,6 @@ export const snowTheme: ParticleTheme = {
   name: '飘雪',
   icon: '❄️',
   description: '浪漫飘落雪花',
-  backgroundGradient: 'linear-gradient(180deg, #1e3a5f 0%, #2d4a6b 50%, #3d5a7b 100%)',
   options: (isDark: boolean) => ({
     ...baseConfig,
     interactivity: {

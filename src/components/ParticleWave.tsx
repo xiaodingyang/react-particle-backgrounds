@@ -12,7 +12,7 @@ interface ParticleWaveProps {
  * Three.js 以动态方式加载 — 如果未安装，此组件不会渲染任何内容。
  */
 const ParticleWave: React.FC<ParticleWaveProps> = ({
-  background = 'linear-gradient(180deg, #000000 0%, #0a1628 50%, #0d1f3c 100%)',
+  background = 'linear-gradient(180deg, #000000 0%, #141414 50%, #1f1f1f 100%)',
   className,
   style,
 }) => {

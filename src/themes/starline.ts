@@ -6,7 +6,6 @@ export const starlineTheme: ParticleTheme = {
   name: '星链',
   icon: '✨',
   description: '经典粒子连线效果',
-  backgroundGradient: 'linear-gradient(180deg, #0f172a 0%, #1e293b 50%, #334155 100%)',
   options: (isDark: boolean) => {
     const colors = DEFAULT_COLORS;
     return {

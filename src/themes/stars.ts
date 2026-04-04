@@ -6,7 +6,6 @@ export const starsTheme: ParticleTheme = {
   name: '繁星',
   icon: '⭐',
   description: '闪烁星空效果',
-  backgroundGradient: 'linear-gradient(180deg, #000000 0%, #1a1a2e 50%, #16213e 100%)',
   options: (isDark: boolean) => ({
     ...baseConfig,
     interactivity: {

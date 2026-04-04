@@ -23,7 +23,7 @@ interface Particle {
  * 轻量级实现，无需 Three.js 依赖。
  */
 const ParticleWave2D: React.FC<ParticleWave2DProps> = ({
-  background = 'linear-gradient(180deg, #000000 0%, #0a1628 50%, #0d1f3c 100%)',
+  background = 'linear-gradient(180deg, #000000 0%, #141414 50%, #1f1f1f 100%)',
   className,
   style,
 }) => {

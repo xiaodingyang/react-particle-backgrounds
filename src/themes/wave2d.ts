@@ -8,5 +8,4 @@ export const wave2dTheme: ParticleTheme = {
   description: '轻量级 Canvas 2D 粒子波浪',
   isThreeJS: true,
   options: () => baseConfig,
-  backgroundGradient: 'linear-gradient(180deg, #000000 0%, #0a1628 50%, #0d1f3c 100%)',
 };
