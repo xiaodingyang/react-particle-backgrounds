@@ -7,6 +7,8 @@ export interface ThemeSelectorProps {
   position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
   /** 激活状态的强调色 */
   accentColor?: string;
+  /** 国际化：'zh-CN' | 'en-US' */
+  locale?: 'zh-CN' | 'en-US';
 }
 
 const POSITION_STYLES: Record<string, React.CSSProperties> = {
@@ -96,33 +98,54 @@ const TIP_STYLE: React.CSSProperties = {
   lineHeight: 1.6,
 };
 
+const i18n = {
+  'zh-CN': {
+    title: '粒子主题',
+    close: '关闭',
+    none: '无',
+    noneDesc: '关闭粒子效果',
+    tip: '你的主题选择会自动保存，下次访问时将自动恢复。',
+    triggerLabel: '主题设置',
+  },
+  'en-US': {
+    title: 'Particle Themes',
+    close: 'Close',
+    none: 'None',
+    noneDesc: 'Disable particle effects',
+    tip: 'Your theme selection is automatically saved.',
+    triggerLabel: 'Theme Settings',
+  },
+} as const;
+
 const THEME_LIST = [...particleThemes, {
   id: 'none',
-  name: '无',
-  icon: '🚫',
-  description: '关闭粒子效果',
+  name: 'none',
+  icon: '\u{1F6AB}',
+  description: 'noneDesc',
 }];
 
 /**
  * 浮动主题选择器按钮 + 抽屉面板。
  * 必须在 `<ParticleProvider>` 内使用。
- *
- * ```tsx
- * <ParticleProvider>
- *   <ParticlesBackground />
- *   <ThemeSelector />
- * </ParticleProvider>
- * ```
  */
 const ThemeSelector: React.FC<ThemeSelectorProps> = ({
   position = 'bottom-right',
   accentColor = '#3b82f6',
+  locale = 'zh-CN',
 }) => {
   const [open, setOpen] = useState(false);
   const { themeId, setTheme } = useParticleTheme();
   const currentTheme = getThemeById(themeId);
+  const t = i18n[locale];
 
   const drawerSide = position.includes('right') ? 'right' : 'left';
+  const fullThemeList = useMemo(() => {
+    return THEME_LIST.map(item => ({
+      ...item,
+      name: item.id === 'none' ? t.none : item.name,
+      description: item.id === 'none' ? t.noneDesc : item.description,
+    }));
+  }, [t]);
 
   const buttonStyle = useMemo(() => ({
     ...BUTTON_BASE_STYLE,
@@ -158,7 +181,7 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({
       <button
         className="rpb-trigger-button"
         onClick={handleOpen}
-        title="主题设置"
+        title={t.triggerLabel}
         style={buttonStyle}
       >
         {currentTheme.icon}
@@ -168,14 +191,14 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({
 
       <div style={drawerStyle}>
         <div style={HEADER_STYLE}>
-          <span style={{ fontWeight: 600, fontSize: 16 }}>粒子主题</span>
+          <span style={{ fontWeight: 600, fontSize: 16 }}>{t.title}</span>
           <button onClick={handleClose} style={CLOSE_BUTTON_STYLE}>
             &times;
           </button>
         </div>
 
         <div style={LIST_STYLE}>
-          {THEME_LIST.map((theme) => {
+          {fullThemeList.map((theme) => {
             const isActive = theme.id === themeId;
             return (
               <div
@@ -244,7 +267,7 @@ const ThemeSelector: React.FC<ThemeSelectorProps> = ({
 
         <div style={TIP_CONTAINER_STYLE}>
           <div style={TIP_STYLE}>
-            你的主题选择会自动保存，下次访问时将自动恢复。
+            {t.tip}
           </div>
         </div>
       </div>
